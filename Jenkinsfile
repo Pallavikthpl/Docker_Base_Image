@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+	agent {Dockerfile true}
 	environment
 	{
 	ant_build = "C:\\Users\\PallaviKathpalia\\IBM\\IIBT10\\workspace_New\\ESPFlow\\Build\\build.xml"
