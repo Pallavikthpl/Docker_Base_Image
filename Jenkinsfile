@@ -41,6 +41,10 @@ pipeline {
 			}
 		}
 		}
-	    
+	    stage('Call Image Build Pipeline'){
+	    steps{
+		    build 'Docker_Image_Pipeline'
+	    }
+	    }
             }
 }
