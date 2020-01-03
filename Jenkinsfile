@@ -1,5 +1,5 @@
 pipeline {
-	agent {dockerfile true || label 'dockernode'}
+	agent {dockerfile true && label 'dockernode'}
 	environment
 	{
 	registry = "pallavikthpl/iibmq_poc1"
