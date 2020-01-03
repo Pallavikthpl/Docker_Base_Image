@@ -21,7 +21,7 @@ pipeline {
 		     agent{label 'dockernode'}
 	    steps{
 		    script{
-		    docker.build("aceappimage:${env.BUILD_ID}", "/home/pallavi/VM2/workspace/Docker_Image_Pipeline@2/Dockerfile")
+		    docker.build("aceappimage:${env.BUILD_ID}", "/home/pallavi/VM2/workspace/Docker_Image_Pipeline@2")
 	    }
 	    }
 	    }
