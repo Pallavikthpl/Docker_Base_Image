@@ -24,8 +24,8 @@ pipeline {
 			def server = Artifactory.server 'JfrogArtifactory'
 			def downloadSpec = """{
 			"files": [{
-			"pattern": "jenkins/*.bar",
-			"target": "/home"
+			"pattern": "jenkins/ESPFlow.bar",
+			"target": "/"
 			}]
 			}"""
  
@@ -38,7 +38,7 @@ pipeline {
 		     agent{label 'dockernode'}
 	    steps{
 		    script{
-		    docker.build("aceappimage:${env.BUILD_ID}", "./Dockerfile")
+		    docker.build("aceappimage:${env.BUILD_ID}", "/home/pallavi/VM2/workspace/Docker_Image_Pipeline@2/Dockerfile")
 	    }
 	    }
 	    }
