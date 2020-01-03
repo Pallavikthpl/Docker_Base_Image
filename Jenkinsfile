@@ -37,7 +37,9 @@ pipeline {
 	    stage('Build Docker Image'){
 		     agent{label 'dockernode'}
 	    steps{
+		    script{
 		    docker.build("aceappimage:${env.BUILD_ID}", "./Dockerfile")
+	    }
 	    }
 	    }
 	    stage('Deploy Image') {
