@@ -1,5 +1,5 @@
 pipeline {
-	agent {Dockerfile true}
+	agent {dockerfile true}
 	environment
 	{
 	registry = "pallavikthpl/iibmq_poc1"
