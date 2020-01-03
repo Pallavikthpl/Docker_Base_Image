@@ -16,24 +16,7 @@ pipeline {
         }
         
         
-	  stage('Download Bar file') {
-		  agent{label 'dockernode'}
-		steps
-		{
-		script {
-			def server = Artifactory.server 'JfrogArtifactory'
-			def downloadSpec = """{
-			"files": [{
-			"pattern": "jenkins/ESPFlow.bar",
-			"target": "/"
-			}]
-			}"""
- 
-			server.download(downloadSpec)
-			}
-		}
-	}
-	   
+	  
 	    stage('Build Docker Image'){
 		     agent{label 'dockernode'}
 	    steps{
