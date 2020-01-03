@@ -1,50 +1,53 @@
 pipeline {
-    agent any
+	agent {Dockerfile true}
 	environment
 	{
-	ant_build = "C:\\Users\\PallaviKathpalia\\IBM\\IIBT10\\workspace_New\\ESPFlow\\Build\\build.xml"
 	registry = "pallavikthpl/iibmq_poc1"
-  registryCredential = 'dockerhub'
+        registryCredential = 'dockerhub'
 	dockerImage = ''
 	}
     stages {
 	    
-        stage('Checkout') { 
-            
+        stage('Checkout Dockerfile') { 
+		agent{label 'dockernode'}
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/Pallavikthpl/Docker_Base_Image.git']]])
+                checkout([$class: 'GitSCM', branches: [[name: '*/dockerfile']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'multibranch github Id', url: 'https://github.com/Pallavikthpl/Docker_Base_Image.git']]])
             }
         }
         
         
-	  stage('Build') {
+	  stage('Download Bar file') {
+		  agent{label 'dockernode'}
 		steps
 		{
-		withAnt(installation: 'apache-ant-1.9.14', jdk: 'jdk-12.0.1'){
-		// some block
-		bat "ant -f ${ant_build}"
-		}
-		}
-	}
-	    stage('upload') {
-		steps {
 		script {
 			def server = Artifactory.server 'JfrogArtifactory'
-			def uploadSpec = """{
+			def downloadSpec = """{
 			"files": [{
-			"pattern": "C:/Users/PallaviKathpalia/JenkinsUCD/",
-			"target": "jenkins"
+			"pattern": "jenkins/*.bar",
+			"target": "/home"
 			}]
 			}"""
  
-			server.upload(uploadSpec)
+			server.download(downloadSpec)
 			}
 		}
-		}
-	    stage('Call Image Build Pipeline'){
+	}
+	   
+	    stage('Build Docker Image'){
+		     agent{label 'dockernode'}
 	    steps{
-		    build 'Docker_Image_Pipeline'
+		    docker.build("aceappimage:${env.BUILD_ID}", "./Dockerfile")
 	    }
 	    }
+	    stage('Deploy Image') {
+  		steps{    
+			script {
+      			docker.withRegistry( '', registryCredential ) {
+        		dockerImage.push()
+      }
+    }
+  }
+}
             }
 }
