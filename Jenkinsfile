@@ -1,5 +1,5 @@
 pipeline {
-	agent {label 'dockernode'}
+	agent none
 	environment
 	{
 	registry = "pallavikthpl/iibmq_poc1"
@@ -15,7 +15,7 @@ pipeline {
             }
         }
         stage('Download Bar file') {
-		  agent{label 'dockernode'}
+		 agent any
 		steps
 		{
 		script {
