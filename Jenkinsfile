@@ -19,6 +19,7 @@ pipeline {
 		steps
 		{
 		script {
+			@NonCPS
 			def server = Artifactory.server 'JfrogArtifactory'
 			def downloadSpec = """{
 			"files": [{
