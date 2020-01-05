@@ -14,32 +14,22 @@ pipeline {
                 checkout([$class: 'GitSCM', branches: [[name: '*/dockerfile']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'multibranch github Id', url: 'https://github.com/Pallavikthpl/Docker_Base_Image.git']]])
             }
         }
-        stage('Download Bar file') {
-		 agent any
-		steps
-		{
-		script {
-			@NonCPS
-			def server = Artifactory.server 'JfrogArtifactory'
-			def downloadSpec = """{
-			"files": [{
-			"pattern": "jenkins/*.bar",
-			"target": "/"
-			}]
-			}"""
- 
-			server.download(downloadSpec)
-			}
-		}
-	}
-	   
-        
+         
 	  
 	    stage('Build Docker Image'){
 		     agent{label 'dockernode'}
 	    steps{
 		    script{
 		    docker.build("aceappimage:${env.BUILD_ID}", "/home/pallavi/VM2/workspace/Docker_Image_Pipeline@2")
+	    }
+	    }
+	    }
+	    
+	     stage('Run Container'){
+		     agent{label 'dockernode'}
+	    steps{
+		    script{
+		    docker.image('aceappimage:${env.BUILD_ID}').withRun('-e "LICENSE=accept" -p 78${env.BUILD_ID}:7800 76${env.BUILD_ID}:7600')
 	    }
 	    }
 	    }
