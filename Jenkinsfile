@@ -2,7 +2,7 @@ pipeline {
 	agent {
 		dockerfile {
 		label 'dockernode'
-		args '-e "LICENSE=accept" -p 7801:7800 -p 7601:7600'
+		args '--entrypoint=/bin/bash -e "LICENSE=accept" -p 7801:7800 -p 7601:7600'
 	}
 	}
     stages{
