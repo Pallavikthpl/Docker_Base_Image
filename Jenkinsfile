@@ -26,8 +26,7 @@ pipeline {
 	    }
 	    
 	     stage('Run Container'){
-		     agent{label 'dockernode'}
-		     steps{
+		     agent{
 			     docker{
 			     image 'aceappimage:${env.BUILD_ID}'
 			     args '-e "LICENSE=accept" -p 78${env.BUILD_ID}:7800 76${env.BUILD_ID}:7600'
