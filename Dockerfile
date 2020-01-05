@@ -19,4 +19,4 @@ RUN /bin/bash -c 'mqsibar -w /home/aceuser/ace-server -a /tmp/$BAR1 -c'
 RUN sed -i 's/adminRestApiPort/#adminRestApiPort/g' /home/aceuser/ace-server/server.conf.yaml 
 
 # We inherit the command from the base layer
-CMD tail -f /dev/null
+CMD /bin/bash ; sleep infinity
