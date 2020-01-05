@@ -9,7 +9,12 @@ pipeline {
     stage('Test'){
 		     
 	    steps{
-	        echo 'Successful run'
+	       echo "Waiting for deployment to complete before starting unit test"
+                	def get = new URL("http://192.168.56.103:7801/Transformation_Map").openConnection();
+			def getRC = get.getResponseCode();
+			println(getRC);
+			if(getRC.equals(200)) {
+   			println(get.getInputStream().getText());
 }}
 	    }
 }
