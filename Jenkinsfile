@@ -1,6 +1,6 @@
 pipeline {
 	agent {
-		dockerfile true{
+		dockerfile {
 		label 'dockernode'
 		args '-e "LICENSE=accept" -p 7801:7800 -p 7601:7600'
 	}
@@ -9,7 +9,7 @@ pipeline {
     stage('Test'){
 		     
 	    steps{
-	        echo "Successful run"
+	        echo 'Successful run'
 }}
 	    }
 
