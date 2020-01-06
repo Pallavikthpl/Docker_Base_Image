@@ -13,10 +13,10 @@ ENV BAR1=Transformation_Map.bar
 COPY --chown=aceuser $BAR1 /tmp
 
 # Unzip the BAR file; need to use bash to make the profile work
-RUN /bin/bash -c 'mqsibar -w /home/aceuser/ace-server -a /tmp/$BAR1 -c'
+RUN bash -c 'mqsibar -w /home/aceuser/ace-server -a /tmp/$BAR1 -c'
 
 # Switch off the admin REST API for the server run, as we won't be deploying anything after start
 RUN sed -i 's/adminRestApiPort/#adminRestApiPort/g' /home/aceuser/ace-server/server.conf.yaml 
 
 # We inherit the command from the base layer
-CMD /bin/bash ; sleep infinity
+
