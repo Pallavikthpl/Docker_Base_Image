@@ -20,7 +20,7 @@ pipeline {
 		     agent{label 'dockernode'}
 	    steps{
 		    script{
-		    dockerImage = docker.build("aceappimage:${env.BUILD_ID}", "/home/pallavi/VM2/workspace/Docker_Image_Pipeline@2")
+		    dockerImage = docker.build("pallavikthpl/aceappimage:${env.BUILD_ID}", "/home/pallavi/VM2/workspace/Docker_Image_Pipeline@2")
 	    }
 	    }
 	    }
@@ -31,7 +31,7 @@ pipeline {
   		steps{    
 			script {
       			docker.withRegistry( '', registryCredential ) {
-        		dockerImage.push("pallavikthpl/dockerImage")
+        		dockerImage.push()
       }
     }
   }
