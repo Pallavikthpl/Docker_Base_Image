@@ -19,7 +19,7 @@ pipeline {
 		steps {
 		script {
 			def server = Artifactory.server 'JfrogArtifactory'
-			def uploadSpec = """{
+			def downloadSpec = """{
 			"files": [{
 			"pattern": "/ESPFlow.bar",
 			"target": "/home/pallavi/VM2/workspace/Docker_Image_Pipeline@2"
