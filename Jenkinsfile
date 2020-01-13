@@ -14,7 +14,22 @@ pipeline {
                 checkout([$class: 'GitSCM', branches: [[name: '*/dockerfile']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'multibranch github Id', url: 'https://github.com/Pallavikthpl/Docker_Base_Image.git']]])
             }
         }
-         
+         stage('Download Bar file') {
+		 agent{label 'dockernode'}
+		steps {
+		script {
+			def server = Artifactory.server 'JfrogArtifactory'
+			def uploadSpec = """{
+			"files": [{
+			"pattern": "/ESPFlow.bar",
+			"target": "/home/pallavi/VM2/workspace/Docker_Image_Pipeline@2"
+			}]
+			}"""
+ 
+			server.download(downloadSpec)
+			}
+		}
+		}
 	  
 	    stage('Build Docker Image'){
 		     agent{label 'dockernode'}
