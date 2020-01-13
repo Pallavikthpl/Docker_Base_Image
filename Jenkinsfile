@@ -27,6 +27,7 @@ pipeline {
 	    
 	     	    
 	    stage('Deploy Image') {
+		    agent{label 'dockernode'}
   		steps{    
 			script {
       			docker.withRegistry( '', registryCredential ) {
