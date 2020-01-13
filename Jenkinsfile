@@ -45,8 +45,10 @@ pipeline {
 		    agent{label 'dockernode'}
   		steps{    
 			script {
-      			docker.withRegistry( '', registryCredential ) {
-        		dockerImage.push()
+      			def server = Artifactory.server 'JfrogArtifactory'
+			def rtDocker = Artifactory.docker server: server
+			def buildInfo = rtDocker.push 'pallavikthpl/aceappimage:${env.BUILD_ID}', 'jenkins/images'
+				server.publishBuildInfo buildInfo
       }
     }
   }
