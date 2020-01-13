@@ -22,7 +22,7 @@ pipeline {
 			def downloadSpec = """{
 			"files": [{
 			"pattern": "jenkins/*.bar",
-			"target": "/home/pallavi/VM2/workspace/Docker_Image_Pipeline@2"
+			"target": "/home/pallavi/VM2/workspace/Docker_Image_Pipeline@2/"
 			}]
 			}"""
  
