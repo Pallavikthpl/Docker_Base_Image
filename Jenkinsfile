@@ -21,7 +21,7 @@ pipeline {
 			def server = Artifactory.server 'JfrogArtifactory'
 			def downloadSpec = """{
 			"files": [{
-			"pattern": "/ESPFlow.bar",
+			"pattern": "jenkins/*.bar",
 			"target": "/home/pallavi/VM2/workspace/Docker_Image_Pipeline@2"
 			}]
 			}"""
