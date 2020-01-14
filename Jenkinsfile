@@ -47,8 +47,8 @@ pipeline {
 			script {
       			def server = Artifactory.server 'JfrogArtifactory'
 			def rtDocker = Artifactory.docker server: server
-			def buildInfo = rtDocker.push 'pallavikthpl/aceappimage:${env.BUILD_ID}', 'jenkins/images'
-				server.publishBuildInfo buildInfo
+			def buildInfo = rtDocker.push ('pallavikthpl/aceappimage:${env.BUILD_ID}', 'jenkins/images')
+				
       }
     }
   }
